@@ -5,26 +5,25 @@
 using namespace std;
 Raster::Raster(int myWidth, int myHeight)
 {
-	if (this->checkSize(myWidth, myHeight))
+	if (checkSize(myWidth, myHeight))
 	{
-		this->width = myWidth;
-		this->height = myHeight;
-		this->arraySize = myWidth * myHeight;
-		this->makePixels(this->width, this->height);
+		width = myWidth;
+		height = myHeight;
+		arraySize = myWidth * myHeight;
+		makePixels(width, height);
 	}
 }
 
 Raster::Raster(COColor pixelArray[], int myWidth = 0, int myHeight = 0)
 {
-
-	if (this->checkSize(myWidth, myHeight))
+	if (checkSize(myWidth, myHeight))
 	{
-		this->width = myWidth;
-		this->height = myHeight;
-		this->arraySize = myWidth * myHeight;
+		width = myWidth;
+		height = myHeight;
+		arraySize = myWidth * myHeight;
 
-		this->makePixels(this->width, this->height);
-		this->setPixels(pixelArray, this->width, this->height);
+		makePixels(width, height);
+		setPixels(pixelArray, width, height);
 	}
 }
 
@@ -35,25 +34,25 @@ Raster::~Raster()
 
 void Raster::makePixels(int myWidth, int myHeight)
 {
-	this->freePPixels();
-	if (this->checkSize(myWidth, myHeight))
+	freePPixels();
+	if (checkSize(myWidth, myHeight))
 	{
-		this->width = myWidth;
-		this->height = myHeight;
-		this->arraySize = this->width * this->height;
+		width = myWidth;
+		height = myHeight;
+		arraySize = width * height;
 
-		this->pPixels = (COColor**)malloc(sizeof(COColor*)*this->height);
-		for (int i = 0; i < this->height; i++)
+		pPixels = (COColor**)malloc(sizeof(COColor*)*height);
+		for (int i = 0; i < height; i++)
 		{
-			*(pPixels + i) = (COColor*)malloc(sizeof(int*)*this->width);
+			*(pPixels + i) = (COColor*)malloc(sizeof(int*)*width);
 		}
 
 		//initialize the pixel tobe defaultValue
-		for (int j = 0; j < this->height; j++)
+		for (int j = 0; j < height; j++)
 		{
-			for (int i = 0; i < this->width; i++)
+			for (int i = 0; i < width; i++)
 			{
-				this->pPixels[j][i] = this->DEFAULT_VALUE;
+				pPixels[j][i] = DEFAULT_VALUE;
 			}
 		}
 	}
