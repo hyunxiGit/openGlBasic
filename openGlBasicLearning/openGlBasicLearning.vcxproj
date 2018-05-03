@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="COTriangle.h" />
     <ClInclude Include="COVector.h" />
+    <ClInclude Include="RasterDraw.h" />
     <ClInclude Include="Raster.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -158,6 +159,7 @@
     <ClCompile Include="COVector.cpp" />
     <ClCompile Include="openGlBasicLearning.cpp" />
     <ClCompile Include="Raster.cpp" />
+    <ClCompile Include="RasterDraw.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

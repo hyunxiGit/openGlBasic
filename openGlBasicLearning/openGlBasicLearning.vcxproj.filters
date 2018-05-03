@@ -30,6 +30,9 @@
     <ClInclude Include="COTriangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="RasterDraw.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -45,6 +48,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="COTriangle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RasterDraw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

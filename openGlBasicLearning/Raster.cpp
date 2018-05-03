@@ -3,7 +3,8 @@
 #include "Raster.h"
 
 using namespace std;
-Raster::Raster(int myWidth, int myHeight)
+Raster::Raster(int myWidth, int myHeight) 
+	:pPixels ( nullptr )
 {
 	if (checkSize(myWidth, myHeight))
 	{
@@ -98,14 +99,52 @@ bool Raster::checkSize(int myWidth, int myHeight)
 	return (success);
 }
 
+bool Raster::saveToFile(char *_path)
+{
+	//check if file exist
+	//ifstream infile(_path);
+
+	ofstream ppmFile;
+	ppmFile.open(/*"d:/test.ppm"*/_path, ios::out);
+	if (ppmFile.is_open())
+	{
+		string myStr;
+		ppmFile << "P3\n";
+		myStr = to_string(width) + " " + to_string(height) + " " + to_string(colourDepth) + "\n";
+		ppmFile << myStr;
+		myStr = "";
+		for (int j = 0; j < height; j++)
+		{
+			for (int i = 0; i < width; i++)
+			{
+				COColor thisPixel = pPixels[j][i];
+				COChannel red   = (pPixels[j][i] & 0xff0000) >> 16;
+				COChannel green = (pPixels[j][i] & 0x00ff00) >> 8;
+				COChannel blue  =  pPixels[j][i] & 0x0000ff;
+
+				ppmFile << int(red);
+				ppmFile << " ";
+				ppmFile << int(green);
+				ppmFile << " ";
+				ppmFile << int(blue);
+				ppmFile << " ";
+			}
+			ppmFile << "\n";
+		}
+		ppmFile.close();
+	}
+	return (true);
+}
+
+
 void Raster::print()
 {
-	for (int j = 0; j < this->height; j++)
+	for (int j = 0; j < height; j++)
 	{
-		for (int i = 0; i <this->width; i++)
+		for (int i = 0; i <width; i++)
 		{
 			//cout << this->pPixels[j][i];
-			printf("0x%06x\n", this->pPixels[j][i]);
+			printf("0x%06x\n", pPixels[j][i]);
 		}
 		cout << endl;
 	}

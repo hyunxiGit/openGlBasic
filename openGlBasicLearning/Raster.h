@@ -1,10 +1,6 @@
 #pragma once
-#ifndef RASTER_H
-#define RASTER_H
 #include "stdafx.h"
 
-typedef uint32_t COColor;
-typedef uint8_t COChannel;
 
 class Raster
 {
@@ -18,17 +14,19 @@ public:
 	int arraySize = 1;
 	int colourDepth = 255;
 
-	COColor **pPixels = NULL;
+	COColor **pPixels;
 
+	//make Raster in default colour
 	Raster(int, int);
+	//make Raster using COColorArray
 	Raster(COColor[], int, int);
 	~Raster();
 
 	void setPixels(COColor[], int, int);
 	bool checkSize(int, int);
+	bool saveToFile(char*);
 	void print();
 private:
 	void freePPixels();
 	void makePixels(int, int);
 };
-#endif

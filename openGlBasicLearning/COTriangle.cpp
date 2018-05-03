@@ -48,19 +48,11 @@ bool COTriangle::isInTriangle(COVector2* _TestVector)
 		float fDevideBy = (float)(((v2.y - v3.y) * (v1.x - v3.x) + (v3.x - v2.x) * (v1.y - v3.y)));
 		float fLam1     = (float)(((v2.y - v3.y) * (v0.x - v3.x) + (v3.x - v2.x) * (v0.y - v3.y)) / fDevideBy);
 		float fLam2     = (float)(((v3.y - v1.y) * (v0.x - v3.x) + (v1.x - v3.x) * (v0.y - v3.y)) / fDevideBy);
-
-		if ((fLam1 >= 0 && fLam1 <= 1) && (fLam2 >= 0 && fLam2 <= 1))
+		float fLam3		= 1.0f - fLam1 - fLam2;
+		if ((fLam1 >= 0.0f && fLam1 <= 1.0f) && (fLam2 >= 0.0f && fLam2 <= 1.0f) && (fLam3 >= 0.0f && fLam3 <= 1.0f))
 		{
 			result = true;
 		}
-	}
-	if (result)
-	{
-		cout << "IN the triangle" << endl;
-	}
-	else
-	{
-		cout << "OUT the triangle" << endl;
 	}
 	return(result);
 }
