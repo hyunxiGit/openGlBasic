@@ -1,9 +1,9 @@
 
 #include "stdafx.h"
-#include "Raster.h"
+#include "CORaster.h"
 
 using namespace std;
-Raster::Raster(int myWidth, int myHeight) 
+CORaster::CORaster(int myWidth, int myHeight)
 	:pPixels ( nullptr )
 {
 	if (checkSize(myWidth, myHeight))
@@ -15,7 +15,7 @@ Raster::Raster(int myWidth, int myHeight)
 	}
 }
 
-Raster::Raster(COColor pixelArray[], int myWidth = 0, int myHeight = 0)
+CORaster::CORaster(TCOColor pixelArray[], int myWidth = 0, int myHeight = 0)
 {
 	if (checkSize(myWidth, myHeight))
 	{
@@ -28,12 +28,12 @@ Raster::Raster(COColor pixelArray[], int myWidth = 0, int myHeight = 0)
 	}
 }
 
-Raster::~Raster()
+CORaster::~CORaster()
 {
 	freePPixels();
 }
 
-void Raster::makePixels(int myWidth, int myHeight)
+void CORaster::makePixels(int myWidth, int myHeight)
 {
 	freePPixels();
 	if (checkSize(myWidth, myHeight))
@@ -42,10 +42,10 @@ void Raster::makePixels(int myWidth, int myHeight)
 		height = myHeight;
 		arraySize = width * height;
 
-		pPixels = (COColor**)malloc(sizeof(COColor*)*height);
+		pPixels = (TCOColor**)malloc(sizeof(TCOColor*)*height);
 		for (int i = 0; i < height; i++)
 		{
-			*(pPixels + i) = (COColor*)malloc(sizeof(int*)*width);
+			*(pPixels + i) = (TCOColor*)malloc(sizeof(int*)*width);
 		}
 
 		//initialize the pixel tobe defaultValue
@@ -60,7 +60,7 @@ void Raster::makePixels(int myWidth, int myHeight)
 }
 
 
-void Raster::setPixels(COColor setPixels[], int myWidth, int myHeight)
+void CORaster::setPixels(TCOColor setPixels[], int myWidth, int myHeight)
 {
 	if (this->checkSize(myWidth, myHeight))
 	{
@@ -74,7 +74,7 @@ void Raster::setPixels(COColor setPixels[], int myWidth, int myHeight)
 	}
 }
 
-void Raster::freePPixels()
+void CORaster::freePPixels()
 {
 	if (!(pPixels == NULL))
 	{
@@ -87,7 +87,7 @@ void Raster::freePPixels()
 	}
 }
 
-bool Raster::checkSize(int myWidth, int myHeight)
+bool CORaster::checkSize(int myWidth, int myHeight)
 {
 	bool success = false;
 	if (myWidth > 0 && myHeight > 0)
@@ -99,7 +99,7 @@ bool Raster::checkSize(int myWidth, int myHeight)
 	return (success);
 }
 
-bool Raster::saveToFile(char *_path)
+bool CORaster::saveToFile(char *_path)
 {
 	//check if file exist
 	//ifstream infile(_path);
@@ -117,10 +117,10 @@ bool Raster::saveToFile(char *_path)
 		{
 			for (int i = 0; i < width; i++)
 			{
-				COColor thisPixel = pPixels[j][i];
-				COChannel red   = (pPixels[j][i] & 0xff0000) >> 16;
-				COChannel green = (pPixels[j][i] & 0x00ff00) >> 8;
-				COChannel blue  =  pPixels[j][i] & 0x0000ff;
+				TCOColor thisPixel = pPixels[j][i];
+				TCOChannel red   = (pPixels[j][i] & 0xff0000) >> 16;
+				TCOChannel green = (pPixels[j][i] & 0x00ff00) >> 8;
+				TCOChannel blue  =  pPixels[j][i] & 0x0000ff;
 
 				ppmFile << int(red);
 				ppmFile << " ";
@@ -137,7 +137,7 @@ bool Raster::saveToFile(char *_path)
 }
 
 
-void Raster::print()
+void CORaster::print()
 {
 	for (int j = 0; j < height; j++)
 	{

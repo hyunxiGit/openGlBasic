@@ -2,27 +2,27 @@
 #include "stdafx.h"
 
 
-class Raster
+class CORaster
 {
 public:
 	const int MAX_WIDTH = 1280;
 	const int MAX_HEIGHT = 720;
-	const COColor DEFAULT_VALUE = 0x000002;
+	const TCOColor DEFAULT_VALUE = 0x000002;
 
 	int width = 1;
 	int height = 1;
 	int arraySize = 1;
 	int colourDepth = 255;
 
-	COColor **pPixels;
+	TCOColor **pPixels;
 
 	//make Raster in default colour
-	Raster(int, int);
+	CORaster(int, int);
 	//make Raster using COColorArray
-	Raster(COColor[], int, int);
-	~Raster();
+	CORaster(TCOColor[], int, int);
+	~CORaster();
 
-	void setPixels(COColor[], int, int);
+	void setPixels(TCOColor[], int, int);
 	bool checkSize(int, int);
 	bool saveToFile(char*);
 	void print();

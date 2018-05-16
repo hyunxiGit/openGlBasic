@@ -24,13 +24,16 @@
     <ClInclude Include="COVector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Raster.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="COTriangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RasterDraw.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CORaster.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="COColor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -44,13 +47,16 @@
     <ClCompile Include="COVector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Raster.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="COTriangle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="RasterDraw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CORaster.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="COColor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
