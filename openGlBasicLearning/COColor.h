@@ -14,20 +14,23 @@ public:
 	COChanelByte*  rPtr = nullptr;
 	COChanelByte*  gPtr = nullptr;
 	COChanelByte*  bPtr = nullptr;
-
-	//float Colour
-	float aFloat;
-	float rFloat;
-	float gFloat;
-	float bFloat;
-
+	
 	COColor(COColorByte);
-	COColor(float, float, float, float);
+
+	//这个构造函数用的时候需要保证数组长度为4，顺序为ARGB
+	COColor(COChanelByte*);
+
 	COColor operator+ (COColor);
 	COColor operator* (float);
+
+	float* COColorToFloat();
+	COColorByte floatToByte(float*);
+
 
 	void print(short mode);
 	//0 : 0xFFFFFF (1,1,1,1)
 	//1 :  0xFFFFFF (255,255,255,255)
 	//2 : 0xFFFFFF <Color Address> <A Address, R Address, G Address, B Address,>
+private:
+	void initPtr();
 };
