@@ -10,11 +10,6 @@ COColor::COColor(COColorByte myColor)
 COColor::COColor(COChanelByte* myChannelArray)
 {
 	int len;
-	GET_ARRAY_LEN(myChannelArray, len);
-	if (len != 4)
-	{
-		return;
-	}
 	
 	COColorByte tempA = myChannelArray[0] << 24 & 0xff000000;
 	COColorByte tempR = myChannelArray[1] << 16 & 0x00ff0000;
@@ -22,11 +17,32 @@ COColor::COColor(COChanelByte* myChannelArray)
 	COColorByte tempB = myChannelArray[3]       & 0x000000ff;
 
 	colorByte = tempA + tempR + tempG + tempB;
+	COChanelByte myChannels[4];
+	getChannel(myChannels);
+
+	for (int i = 0; i < 4; i++)
+	{
+
+	}
+}
+
+COColor::COColor(float* myChannelArray)
+{
+	int len;
+
+	COColorByte tempA = ((COColorByte)(255 * myChannelArray[0])) << 24 & 0xff000000;
+	COColorByte tempR = ((COColorByte)(255 * myChannelArray[1])) << 16 & 0x00ff0000;
+	COColorByte tempG = ((COColorByte)(255 * myChannelArray[2])) << 8  & 0x0000ff00;
+	COColorByte tempB = ((COColorByte)(255 * myChannelArray[3]))       & 0x000000ff;
+
+	colorByte = tempA + tempR + tempG + tempB;
 	initPtr();
 }
 
+
 void COColor :: initPtr()
 {
+	//initialize pointer
 	colorptr = &colorByte;
 	cout << hex<<*colorptr << endl;
 	bPtr = (COChanelByte*)(colorptr);
@@ -38,8 +54,6 @@ void COColor :: initPtr()
 
 void COColor ::COColorToFloat(float* myFloatColor)
 {
-	//todo 这里还不太对，从主程序跑没有出来对的结果
-
 
 	if (aPtr != nullptr && rPtr != nullptr && gPtr != nullptr && bPtr != nullptr)
 	{
@@ -51,6 +65,7 @@ void COColor ::COColorToFloat(float* myFloatColor)
 	}
 }
 
+//这里应该写成一个COColor的constructer
 COColorByte COColor::floatToByte(float * myFloatColor)
 {
 	COColorByte myByteColor = 0x0;
@@ -85,16 +100,13 @@ COColorByte COColor::floatToByte(float * myFloatColor)
 	return (myByteColor);
 }
 
-COChanelByte* COColor::getChannel(COChanelByte* myChannel)
+void COColor::getChannel(COChanelByte* myChannel)
 {
-	COChanelByte channel[4];
-
-	channel[0] = (COChanelByte) (*aPtr);
-	channel[1] = (COChanelByte) (*rPtr);
-	channel[2] = (COChanelByte) (*gPtr);
-	channel[3] = (COChanelByte) (*bPtr);
-
-	return(channel);
+	//myChannel长度必须为4
+	myChannel[0] = (COChanelByte) (*aPtr);
+	myChannel[1] = (COChanelByte) (*rPtr);
+	myChannel[2] = (COChanelByte) (*gPtr);
+	myChannel[3] = (COChanelByte) (*bPtr);
 
 }
 
@@ -105,7 +117,8 @@ COColor COColor::operator+(COColor myColor)
 
 COColor COColor::operator*(float myScaler)
 {
-	return colorByte;
+	
+	return (colorByte * myScaler);
 }
 
 void COColor :: print(short mode = 0)
@@ -113,8 +126,10 @@ void COColor :: print(short mode = 0)
 	switch (mode)
 	{
 	case 0:
-		//output :  0xFFFFFF (1,1,1,1)
-		cout << " 0x" << hex << colorByte << " ";
+		//output :  0xFFFFFF (ff,ff,ff,ff)
+		cout.setf(ios::hex);
+		cout << " 0x" << colorByte << " ";
+		cout << "(" << (COColorByte)(*aPtr) << " , " << (COColorByte)(*rPtr) << " , " << (COColorByte)(*gPtr) << " , " << (COColorByte)(*bPtr) << " )";
 		//todo : 重新写输出flolat， 因为float成员不存在了
 		//cout << "(" << setprecision(2) <<aFloat << " , " << rFloat << " , " << gFloat << " , " << bFloat << " ) " << endl;
 		break;
@@ -122,10 +137,10 @@ void COColor :: print(short mode = 0)
 	case 1:
 		//output :  0xFFFFFF (255,255,255,255)
 		//cout.setf(ios::hex);
-		// cancel hex back to oct
+		// cancel hex back to dec
 		cout.unsetf(ios::hex);
 		cout << " 0x" << hex << colorByte << " ";
-		cout << "(" << oct << (COColorByte)(*aPtr) << " , " << (COColorByte)(*rPtr) << " , " << (COColorByte)(*gPtr) << " , " << (COColorByte)(*bPtr) << " )";
+		cout << "(" <<  (COColorByte)(*aPtr) << " , " << (COColorByte)(*rPtr) << " , " << (COColorByte)(*gPtr) << " , " << (COColorByte)(*bPtr) << " )";
 		break;
 
 	case 2:
