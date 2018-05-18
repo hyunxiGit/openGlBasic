@@ -9,21 +9,13 @@ COColor::COColor(COColorByte myColor)
 
 COColor::COColor(COChanelByte* myChannelArray)
 {
-	int len;
-	
 	COColorByte tempA = myChannelArray[0] << 24 & 0xff000000;
 	COColorByte tempR = myChannelArray[1] << 16 & 0x00ff0000;
 	COColorByte tempG = myChannelArray[2] << 8  & 0x0000ff00;
 	COColorByte tempB = myChannelArray[3]       & 0x000000ff;
 
 	colorByte = tempA + tempR + tempG + tempB;
-	COChanelByte myChannels[4];
-	getChannel(myChannels);
-
-	for (int i = 0; i < 4; i++)
-	{
-
-	}
+	initPtr();
 }
 
 COColor::COColor(float* myChannelArray)
@@ -52,7 +44,7 @@ void COColor :: initPtr()
 	aPtr = bPtr + 3;
 }
 
-void COColor ::COColorToFloat(float* myFloatColor)
+void COColor :: COColorToFloat(float* myFloatColor)
 {
 
 	if (aPtr != nullptr && rPtr != nullptr && gPtr != nullptr && bPtr != nullptr)
@@ -109,16 +101,38 @@ void COColor::getChannel(COChanelByte* myChannel)
 	myChannel[3] = (COChanelByte) (*bPtr);
 
 }
-
+// todo : 可能 + 和  * 还需要cap 一下....测试结果和不合法
 COColor COColor::operator+(COColor myColor)
 {
-	return myColor;
+	COChanelByte col2Channels[4];
+	myColor.getChannel(col2Channels);
+
+	COChanelByte col1Channels[4];
+	getChannel(col1Channels);
+
+	COChanelByte col3Channels[4];
+
+	for (int i = 0; i < 4; i++)
+	{
+		col3Channels[i] = col1Channels[2] + col2Channels[2];
+	}
+
+	COColor newColor(col3Channels);
+
+	return (newColor);
 }
 
 COColor COColor::operator*(float myScaler)
 {
-	
-	return (colorByte * myScaler);
+	COChanelByte myChannelArray[4];
+	myChannelArray[0] = (COChanelByte)((*aPtr)*myScaler);
+	myChannelArray[1] = (COChanelByte)((*rPtr)*myScaler);
+	myChannelArray[2] = (COChanelByte)((*gPtr)*myScaler);
+	myChannelArray[3] = (COChanelByte)((*bPtr)*myScaler);
+	 
+	COColor newColor(myChannelArray);
+
+	return (newColor);
 }
 
 void COColor :: print(short mode = 0)
@@ -129,9 +143,12 @@ void COColor :: print(short mode = 0)
 		//output :  0xFFFFFF (ff,ff,ff,ff)
 		cout.setf(ios::hex);
 		cout << " 0x" << colorByte << " ";
-		cout << "(" << (COColorByte)(*aPtr) << " , " << (COColorByte)(*rPtr) << " , " << (COColorByte)(*gPtr) << " , " << (COColorByte)(*bPtr) << " )";
+		cout << "(" << (int)(*aPtr) << " , " << (int)(*rPtr) << " , " << (int)(*gPtr) << " , " << (int)(*bPtr) << " )";
 		//todo : 重新写输出flolat， 因为float成员不存在了
-		//cout << "(" << setprecision(2) <<aFloat << " , " << rFloat << " , " << gFloat << " , " << bFloat << " ) " << endl;
+		float myFloatChannel[4];
+		COColorToFloat(myFloatChannel);
+		cout.unsetf(ios::hex);
+		cout << "(" << myFloatChannel[0] << "," << myFloatChannel[1] << "," << myFloatChannel[2] << "," << myFloatChannel[3] << ")" << endl;
 		break;
 
 	case 1:
