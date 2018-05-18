@@ -22,33 +22,33 @@ COColor::COColor(COChanelByte* myChannelArray)
 	COColorByte tempB = myChannelArray[3]       & 0x000000ff;
 
 	colorByte = tempA + tempR + tempG + tempB;
-
 	initPtr();
 }
 
 void COColor :: initPtr()
 {
 	colorptr = &colorByte;
+	cout << hex<<*colorptr << endl;
 	bPtr = (COChanelByte*)(colorptr);
+
 	gPtr = bPtr + 1;
 	rPtr = bPtr + 2;
 	aPtr = bPtr + 3;
 }
 
-float* COColor ::COColorToFloat()
+void COColor ::COColorToFloat(float* myFloatColor)
 {
 	//todo 这里还不太对，从主程序跑没有出来对的结果
-	float myFloatColor[4];
+
 
 	if (aPtr != nullptr && rPtr != nullptr && gPtr != nullptr && bPtr != nullptr)
 	{
-		myFloatColor[0] = *aPtr / 255.0;
-		myFloatColor[1] = *rPtr / 255.0;
-		myFloatColor[2] = *gPtr / 255.0;
-		myFloatColor[3] = *bPtr / 255.0;
+		cout.unsetf(ios::hex);
+		myFloatColor[0] = (float)(*aPtr / 255.0);
+		myFloatColor[1] = (float)(*rPtr / 255.0);	
+		myFloatColor[2] = (float)(*gPtr / 255.0);
+		myFloatColor[3] = (float)(*bPtr / 255.0);
 	}
-	
-	return (myFloatColor);
 }
 
 COColorByte COColor::floatToByte(float * myFloatColor)
@@ -82,6 +82,20 @@ COColorByte COColor::floatToByte(float * myFloatColor)
 		myByteColor = tempA + tempR + tempG + tempB;
 		return (myByteColor);
 	}
+	return (myByteColor);
+}
+
+COChanelByte* COColor::getChannel(COChanelByte* myChannel)
+{
+	COChanelByte channel[4];
+
+	channel[0] = (COChanelByte) (*aPtr);
+	channel[1] = (COChanelByte) (*rPtr);
+	channel[2] = (COChanelByte) (*gPtr);
+	channel[3] = (COChanelByte) (*bPtr);
+
+	return(channel);
+
 }
 
 COColor COColor::operator+(COColor myColor)
@@ -107,8 +121,11 @@ void COColor :: print(short mode = 0)
 
 	case 1:
 		//output :  0xFFFFFF (255,255,255,255)
+		//cout.setf(ios::hex);
+		// cancel hex back to oct
+		cout.unsetf(ios::hex);
 		cout << " 0x" << hex << colorByte << " ";
-		cout << "(" << oct << (int)(*aPtr) << " , " << (int)(*rPtr) << " , " << (int)(*gPtr) << " , " << (int)(*bPtr) << " )";
+		cout << "(" << oct << (COColorByte)(*aPtr) << " , " << (COColorByte)(*rPtr) << " , " << (COColorByte)(*gPtr) << " , " << (COColorByte)(*bPtr) << " )";
 		break;
 
 	case 2:

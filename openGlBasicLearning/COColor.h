@@ -23,9 +23,10 @@ public:
 	COColor operator+ (COColor);
 	COColor operator* (float);
 
-	float* COColorToFloat();
+	void COColorToFloat(float*);
 	COColorByte floatToByte(float*);
 
+	COChanelByte* getChannel(COChanelByte*);
 
 	void print(short mode);
 	//0 : 0xFFFFFF (1,1,1,1)
