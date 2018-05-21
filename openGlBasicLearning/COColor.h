@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "stdafx.h"
 
 typedef uint32_t COColorByte;
@@ -20,8 +20,11 @@ public:
 	uint8_t c = 5;
 
 	
+
 	COColor(COColorByte);
-	//������캯���õ�ʱ����Ҫ��֤���鳤��Ϊ4��˳��ΪARGB
+	COColor(const COColor&);
+	//Õâ¸ö¹¹Ôìº¯ÊýÓÃµÄÊ±ºòÐèÒª±£Ö¤Êý×é³¤¶ÈÎª4£¬Ë³ÐòÎªARGB
+	//尝试一下使用中文注释
 	COColor(COChanelByte*);
 	COColor(float*);
 

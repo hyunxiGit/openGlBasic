@@ -18,6 +18,26 @@ COColor::COColor(COChanelByte* myChannelArray)
 	initPtr();
 }
 
+COColor::COColor(const COColor & myCOColor)
+{
+	colorptr = new COColorByte;
+	aPtr	 = new COChanelByte;
+	rPtr = new COChanelByte;
+	gPtr = new COChanelByte;
+	bPtr = new COChanelByte;
+
+	initPtr();
+	//COColorByte* myColor = myCOColor;
+
+	*colorptr = *myCOColor.colorptr;
+	*aPtr = *myCOColor.aPtr;
+	*rPtr = *myCOColor.rPtr;
+	*gPtr = *myCOColor.gPtr;
+	*bPtr = *myCOColor.bPtr;
+
+
+}
+
 COColor::COColor(float* myChannelArray)
 {
 	int len;
@@ -124,15 +144,15 @@ COColor COColor::operator+(COColor myColor)
 
 COColor COColor::operator*(float myScaler)
 {
-	COChanelByte myChannelArray[4];
-	myChannelArray[0] = (COChanelByte)((*aPtr)*myScaler);
-	myChannelArray[1] = (COChanelByte)((*rPtr)*myScaler);
-	myChannelArray[2] = (COChanelByte)((*gPtr)*myScaler);
-	myChannelArray[3] = (COChanelByte)((*bPtr)*myScaler);
-	 
-	COColor newColor(myChannelArray);
 
-	return (newColor);
+	COColor resultColor(*this);
+	COChanelByte myChannel[4];
+	*resultColor.aPtr = *this -> aPtr * 0.5f;
+	*resultColor.rPtr = *this -> rPtr * 0.5f;
+	*resultColor.gPtr = *this -> gPtr * 0.5f;
+	*resultColor.bPtr = *this -> bPtr * 0.5f;
+	
+	return (resultColor);
 }
 
 void COColor :: print(short mode = 0)
