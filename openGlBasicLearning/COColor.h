@@ -16,6 +16,7 @@ public:
 	COChanelByte*  bPtr = nullptr;
 	
 	COColor(COColorByte);
+	COColor(const COColor&);
 	//这个构造函数用的时候需要保证数组长度为4，顺序为ARGB
 	COColor(COChanelByte*);
 	COColor(float*);
