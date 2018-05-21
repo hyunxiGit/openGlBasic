@@ -14,6 +14,11 @@ public:
 	COChanelByte*  rPtr = nullptr;
 	COChanelByte*  gPtr = nullptr;
 	COChanelByte*  bPtr = nullptr;
+
+	uint8_t a = 0;
+	double b = 0.132358703512086750812643;
+	uint8_t c = 5;
+
 	
 	COColor(COColorByte);
 	//这个构造函数用的时候需要保证数组长度为4，顺序为ARGB
