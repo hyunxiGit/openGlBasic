@@ -20,15 +20,10 @@ public:
 	
 	static COColorByte getIntColor(COColor);
 	
-	static float getFloatChannel(COChanelByte);
+	static float getFloat(COChanelByte);
 	
 	static COChanelByte getByte(float);
 
 	static COColor add      ( COColor , COColor);
 	static COColor multiply ( COColor , float);
-
-	static void print(short mode);
-	//0 : 0xFFFFFF (1,1,1,1)
-	//1 :  0xFFFFFF (255,255,255,255)
-	//2 : 0xFFFFFF <Color Address> <A Address, R Address, G Address, B Address,>
 };
