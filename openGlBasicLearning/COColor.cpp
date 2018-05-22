@@ -1,162 +1,84 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 # include "COColor.h"
-COColor::COColor(COColorByte myColor)
+
+COColor Color :: makeCOColor(COChanelByte myA, COChanelByte myR, COChanelByte myG, COChanelByte myB)
 {
-	//seperate channel to ByteChannel
-	colorByte = myColor;
-	initPtr();
-}
+	COColor resultColor;
+	resultColor.a = myA;
+	resultColor.r = myR;
+	resultColor.g = myG;
+	resultColor.b = myB;
 
-COColor::COColor(COChanelByte* myChannelArray)
-{
-	COColorByte tempA = myChannelArray[0] << 24 & 0xff000000;
-	COColorByte tempR = myChannelArray[1] << 16 & 0x00ff0000;
-	COColorByte tempG = myChannelArray[2] << 8  & 0x0000ff00;
-	COColorByte tempB = myChannelArray[3]       & 0x000000ff;
-
-	colorByte = tempA + tempR + tempG + tempB;
-	initPtr();
-}
-
-COColor::COColor(const COColor & myCOColor)
-{
-	colorptr = new COColorByte;
-	aPtr	 = new COChanelByte;
-	rPtr = new COChanelByte;
-	gPtr = new COChanelByte;
-	bPtr = new COChanelByte;
-
-	initPtr();
-	//COColorByte* myColor = myCOColor;
-
-	*colorptr = *myCOColor.colorptr;
-	*aPtr = *myCOColor.aPtr;
-	*rPtr = *myCOColor.rPtr;
-	*gPtr = *myCOColor.gPtr;
-	*bPtr = *myCOColor.bPtr;
-
-
-}
-
-COColor::COColor(float* myChannelArray)
-{
-	int len;
-
-	COColorByte tempA = ((COColorByte)(255 * myChannelArray[0])) << 24 & 0xff000000;
-	COColorByte tempR = ((COColorByte)(255 * myChannelArray[1])) << 16 & 0x00ff0000;
-	COColorByte tempG = ((COColorByte)(255 * myChannelArray[2])) << 8  & 0x0000ff00;
-	COColorByte tempB = ((COColorByte)(255 * myChannelArray[3]))       & 0x000000ff;
-
-	colorByte = tempA + tempR + tempG + tempB;
-	initPtr();
-}
-
-
-void COColor :: initPtr()
-{
-	//initialize pointer
-	colorptr = &colorByte;
-	cout << hex<<*colorptr << endl;
-	bPtr = (COChanelByte*)(colorptr);
-
-	gPtr = bPtr + 1;
-	rPtr = bPtr + 2;
-	aPtr = bPtr + 3;
-}
-
-void COColor :: COColorToFloat(float* myFloatColor)
-{
-
-	if (aPtr != nullptr && rPtr != nullptr && gPtr != nullptr && bPtr != nullptr)
-	{
-		cout.unsetf(ios::hex);
-		myFloatColor[0] = (float)(*aPtr / 255.0);
-		myFloatColor[1] = (float)(*rPtr / 255.0);	
-		myFloatColor[2] = (float)(*gPtr / 255.0);
-		myFloatColor[3] = (float)(*bPtr / 255.0);
-	}
-}
-
-//ÕâÀïÓ¦¸ÃÐ´³ÉÒ»¸öCOColorµÄconstructer
-COColorByte COColor::floatToByte(float * myFloatColor)
-{
-	COColorByte myByteColor = 0x0;
-	
-	//³õÊ¼»¯ÕâÀï»¹ÓÐµãÎÊÌâ
-	
-	if (myFloatColor != nullptr)
-	{
-		int len;
-		GET_ARRAY_LEN(myFloatColor, len);
-		if (len != 4)
-		{
-			cout << "length must be 4 for color component" << endl;
-			//todo: ÕâÀïÐèÒª¿´ÔõÃ´´¦Àí²ÎÊý²»ºÏ·¨
-			return (myByteColor);
-		}
-
-		//È¡³öÊý×éÖÐµÄÃ¿¸öÊý¾Ý£¬×ª»¯byte£¬ ¹¹³É COColorByte
-		COChanelByte a = (int)(255 * myFloatColor[0]);
-		COChanelByte r = (int)(255 * myFloatColor[1]);
-		COChanelByte g = (int)(255 * myFloatColor[2]);
-		COChanelByte b = (int)(255 * myFloatColor[3]);
-
-		COColorByte tempA = a << 24 & 0xff000000;
-		COColorByte tempR = r << 16 & 0x00ff0000;
-		COColorByte tempG = g << 8 & 0x0000ff00;
-		COColorByte tempB = b & 0x000000ff;
-
-		myByteColor = tempA + tempR + tempG + tempB;
-		return (myByteColor);
-	}
-	return (myByteColor);
-}
-
-void COColor::getChannel(COChanelByte* myChannel)
-{
-	//myChannel³¤¶È±ØÐëÎª4
-	myChannel[0] = (COChanelByte) (*aPtr);
-	myChannel[1] = (COChanelByte) (*rPtr);
-	myChannel[2] = (COChanelByte) (*gPtr);
-	myChannel[3] = (COChanelByte) (*bPtr);
-
-}
-// todo : ¿ÉÄÜ + ºÍ  * »¹ÐèÒªcap Ò»ÏÂ....²âÊÔ½á¹ûºÍ²»ºÏ·¨
-COColor COColor::operator+(COColor myColor)
-{
-	COChanelByte col2Channels[4];
-	myColor.getChannel(col2Channels);
-
-	COChanelByte col1Channels[4];
-	getChannel(col1Channels);
-
-	COChanelByte col3Channels[4];
-
-	for (int i = 0; i < 4; i++)
-	{
-		col3Channels[i] = col1Channels[2] + col2Channels[2];
-	}
-
-	COColor newColor(col3Channels);
-
-	return (newColor);
-}
-
-COColor COColor::operator*(float myScaler)
-{
-
-	COColor resultColor(*this);
-	COChanelByte myChannel[4];
-	*resultColor.aPtr = *this -> aPtr * 0.5f;
-	*resultColor.rPtr = *this -> rPtr * 0.5f;
-	*resultColor.gPtr = *this -> gPtr * 0.5f;
-	*resultColor.bPtr = *this -> bPtr * 0.5f;
-	
 	return (resultColor);
 }
 
-void COColor :: print(short mode = 0)
+COColor Color::makeCOColor ( float myA , float myR, float myG, float myB )
 {
+	COColor resultColor;
+
+	resultColor.a  = Color :: getByte ( myA );
+	resultColor.r  = Color :: getByte ( myR );
+	resultColor.g  = Color :: getByte ( myG );
+	resultColor.b  = Color :: getByte ( myB );
+
+	return (resultColor);
+}
+
+COColorByte Color::getIntColor(COColor myColor)
+{
+	COColorByte myResultColor;
+	myResultColor = ( myColor.a << 24 ) & 0xFF000000 + \
+					( myColor.r << 16 ) & 0x00FF0000 + \
+					( myColor.g <<  8 ) & 0x0000FF00 + \
+					myColor.b       & 0x000000FF;
+
+	return (myResultColor);
+}
+
+COChanelByte Color::getByte(float myFloatChannel)
+{
+	COChanelByte resultByteChannel = 0;
+	//æ£€æµ‹å‚æ•°æ˜¯å¦åˆæ³•
+	if (myFloatChannel > 1 || myFloatChannel < 0)
+	{
+		cout << " float channel must between [0,1]";
+	}
+	else
+	{
+		resultByteChannel = (COChanelByte)(255 * myFloatChannel);
+	}
+	return(resultByteChannel);
+}
+
+float Color :: getFloatChannel(COChanelByte myByteChannel)
+{
+	float resultFloatChannel = myByteChannel / 255.0f;
+	return (resultFloatChannel);
+}
+
+COColor Color :: add(COColor myCol1, COColor myCol2)
+{
+	COColor myResultColor;
+	myResultColor.a =  myCol1.a + myCol2.a ;
+	myResultColor.r =  myCol1.r + myCol2.r ;
+	myResultColor.g =  myCol1.g + myCol2.g ;
+	myResultColor.b =  myCol1.b + myCol2.b ;
+	return (myResultColor);
+}
+
+COColor Color :: multiply(COColor myCol, float myScaler)
+{
+	COColor myResultColor;
+	myResultColor.a = myCol.a * myScaler;
+	myResultColor.r = myCol.r * myScaler;
+	myResultColor.g = myCol.g * myScaler;
+	myResultColor.b = myCol.b * myScaler;
+	return (myResultColor);
+}
+
+void Color:: print(short mode = 0)
+{
+	/*
 	switch (mode)
 	{
 	case 0:
@@ -164,7 +86,7 @@ void COColor :: print(short mode = 0)
 		cout.setf(ios::hex);
 		cout << " 0x" << colorByte << " ";
 		cout << "(" << (int)(*aPtr) << " , " << (int)(*rPtr) << " , " << (int)(*gPtr) << " , " << (int)(*bPtr) << " )";
-		//todo : ÖØÐÂÐ´Êä³öflolat£¬ ÒòÎªfloat³ÉÔ±²»´æÔÚÁË
+		//todo : Ã–Ã˜ÃÃ‚ÃÂ´ÃŠÃ¤Â³Ã¶flolatÂ£Â¬ Ã’Ã²ÃŽÂªfloatÂ³Ã‰Ã”Â±Â²Â»Â´Ã¦Ã”ÃšÃÃ‹
 		float myFloatChannel[4];
 		COColorToFloat(myFloatChannel);
 		cout.unsetf(ios::hex);
@@ -190,4 +112,5 @@ void COColor :: print(short mode = 0)
 	default:
 		break;
 	};
+	*/
 }
