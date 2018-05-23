@@ -1,5 +1,5 @@
-#pragma once
-
+﻿#pragma once
+//todo : 改写Vector2, vector3 为数据结构
 class COVector2
 {
 public:

@@ -70,9 +70,9 @@ COColor Color :: add(COColor myCol1, COColor myCol2)
 COColor Color :: multiply(COColor myCol, float myScaler)
 {
 	COColor myResultColor;
-	myResultColor.a = myCol.a * myScaler;
-	myResultColor.r = myCol.r * myScaler;
-	myResultColor.g = myCol.g * myScaler;
-	myResultColor.b = myCol.b * myScaler;
+	myResultColor.a = (COChanelByte) (myCol.a * myScaler);
+	myResultColor.r = (COChanelByte) (myCol.r * myScaler);
+	myResultColor.g = (COChanelByte) (myCol.g * myScaler);
+	myResultColor.b = (COChanelByte) (myCol.b * myScaler);
 	return (myResultColor);
 }
