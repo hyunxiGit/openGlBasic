@@ -1,11 +1,11 @@
 #pragma once
-class COVector2;
+class TCOVector2;
 class COTriangle
 {
 public:
-	COVector2* vertexArray;
-	COTriangle(COVector2*);
+	TCOVector2 * vertexArray;
+	COTriangle(TCOVector2*);
 	void print();
-	static bool isTriangle(COVector2*);
-	bool isInTriangle(COVector2*);
+	static bool isTriangle(TCOVector2*);
+	bool isInTriangle(TCOVector2*);
 };

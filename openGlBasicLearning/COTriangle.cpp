@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "COTriangle.h"
 #include "COVector.h"
-COTriangle::COTriangle(COVector2* _vArray)
+COTriangle::COTriangle(TCOVector2* _vArray)
 	:vertexArray (nullptr) // 这里是给空指针赋值的方法，1. 因为是指针所以赋值使用 nullptr 2. 因为只有constructor 里面才能赋值所以写在constructor后面
 {
 	if (COTriangle::isTriangle(_vArray))
@@ -25,7 +25,7 @@ void COTriangle::print()
 	}
 }
 
-bool COTriangle::isTriangle(COVector2* _vArray)
+bool COTriangle::isTriangle(TCOVector2* _vArray)
 {
 	bool result = true;
 	if (_vArray[0]== _vArray[1]|| _vArray[0] == _vArray[2]||_vArray[1]== _vArray[2])
@@ -35,16 +35,16 @@ bool COTriangle::isTriangle(COVector2* _vArray)
 	return (result);
 }
 
-bool COTriangle::isInTriangle(COVector2* _TestVector)
+bool COTriangle::isInTriangle(TCOVector2* _TestVector)
 {
 	bool result = false;
 	if (vertexArray == NULL){}
 	else
 	{
-		COVector2 v0 = *_TestVector;
-		COVector2 v1 = vertexArray[0];
-		COVector2 v2 = vertexArray[1];
-		COVector2 v3 = vertexArray[2];
+		TCOVector2 v0 = *_TestVector;
+		TCOVector2 v1 = vertexArray[0];
+		TCOVector2 v2 = vertexArray[1];
+		TCOVector2 v3 = vertexArray[2];
 		float fDevideBy = (float)(((v2.y - v3.y) * (v1.x - v3.x) + (v3.x - v2.x) * (v1.y - v3.y)));
 		float fLam1     = (float)(((v2.y - v3.y) * (v0.x - v3.x) + (v3.x - v2.x) * (v0.y - v3.y)) / fDevideBy);
 		float fLam2     = (float)(((v3.y - v1.y) * (v0.x - v3.x) + (v1.x - v3.x) * (v0.y - v3.y)) / fDevideBy);

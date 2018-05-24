@@ -6,25 +6,25 @@ void coTestFunction()
 	printf("this is coTestFunction");
 }
 
-COVector2::COVector2(float _x, float _y)
+TCOVector2::TCOVector2(float _x, float _y)
 {
 	x = _x;
 	y = _y;
 }
 
-COVector2 COVector2::operator+ (COVector2 _a)
+TCOVector2 TCOVector2::operator+ (TCOVector2 _a)
 {
-	COVector2 resultVector(x + _a.x, y + _a.y);
+	TCOVector2 resultVector(x + _a.x, y + _a.y);
 	return(resultVector);
 }
 
-COVector2 COVector2::operator* (float _a)
+TCOVector2 TCOVector2::operator* (float _a)
 {
-	COVector2 resultVector((float)x * _a, (float)y * _a);
+	TCOVector2 resultVector((float)x * _a, (float)y * _a);
 	return(resultVector);
 }
 
-bool COVector2 :: operator== (COVector2 _a)
+bool TCOVector2 :: operator== (TCOVector2 _a)
 {
 	bool result = false;
 	if (x == _a.x && y == _a.y)
@@ -34,7 +34,7 @@ bool COVector2 :: operator== (COVector2 _a)
 	return (result);
 }
 
-void COVector2::print()
+void TCOVector2::print()
 {
 	cout << "(";
 	cout << x;

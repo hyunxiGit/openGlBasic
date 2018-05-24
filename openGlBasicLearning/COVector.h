@@ -1,13 +1,39 @@
 ﻿#pragma once
 //todo : 改写Vector2, vector3 为数据结构
-class COVector2
+struct COVector2
+{
+	float x;
+	float y;
+};
+
+struct COVector3
+{
+	float x;
+	float y;
+	float z;
+};
+
+class Vector
+{
+public:
+	static COVector2 makeCOVector2(float, float);
+	static COVector2 makeCOVector3(float, float, float);
+	static COVector2 add(COVector2, COVector2);
+	static COVector2 add(COVector3, COVector3);
+	static COVector2 scale(COVector2, float);
+	static COVector2 scale(COVector3, float);
+	static void print(COVector2);
+	static void print(COVector3);
+};
+
+class TCOVector2
 {
 public:
 	float x;
 	float y;
-	COVector2(float, float);
-	COVector2 operator+ (COVector2);
-	COVector2 operator* (float);
-	bool operator== (COVector2);
+	TCOVector2(float, float);
+	TCOVector2 operator+ (TCOVector2);
+	TCOVector2 operator* (float);
+	bool operator== (TCOVector2);
 	void print();
 };
