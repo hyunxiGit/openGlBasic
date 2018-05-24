@@ -103,8 +103,9 @@ int CORaster::getHeight()
 
 bool CORaster::saveToFile(char *_path)
 {
-	//check if file exist
-	//ifstream infile(_path);
+	//用法: 
+	//char myPath[]= "d:/test.ppm";
+	//myRaster.saveToFile(myPath);
 
 	ofstream ppmFile;
 	ppmFile.open(/*"d:/test.ppm"*/_path, ios::out);
@@ -145,8 +146,8 @@ void CORaster::print()
 	{
 		for (int i = 0; i <width; i++)
 		{
-			//cout << this->pPixels[j][i];
-			printf("0x%06x\n", pixelArray[j][i]);
+			cout << "(" << hex << ((int)(pixelArray[j][i]).a) << "," << (int)pixelArray[j][i].r << ","\
+				<< (int)pixelArray[j][i].g << "," << (int)pixelArray[j][i].b << ")";
 		}
 		cout << endl;
 	}
