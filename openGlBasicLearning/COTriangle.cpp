@@ -1,17 +1,17 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "COTriangle.h"
 #include "COVector.h"
-COTriangle::COTriangle(TCOVector2* _vArray)
-	:vertexArray (nullptr) // ÕâÀïÊÇ¸ø¿ÕÖ¸Õë¸³ÖµµÄ·½·¨£¬1. ÒòÎªÊÇÖ¸ÕëËùÒÔ¸³ÖµÊ¹ÓÃ nullptr 2. ÒòÎªÖ»ÓĞconstructor ÀïÃæ²ÅÄÜ¸³ÖµËùÒÔĞ´ÔÚconstructorºóÃæ
+TCOTriangle::TCOTriangle(TCOVector2* _vArray)
+	:vertexArray (nullptr) // è¿™é‡Œæ˜¯ç»™ç©ºæŒ‡é’ˆèµ‹å€¼çš„æ–¹æ³•ï¼Œ1. å› ä¸ºæ˜¯æŒ‡é’ˆæ‰€ä»¥èµ‹å€¼ä½¿ç”¨ nullptr 2. å› ä¸ºåªæœ‰constructor é‡Œé¢æ‰èƒ½èµ‹å€¼æ‰€ä»¥å†™åœ¨constructoråé¢
 {
-	if (COTriangle::isTriangle(_vArray))
+	if (TCOTriangle::isTriangle(_vArray))
 	{
 		cout << "is triangle" << endl;
 		vertexArray = _vArray;
 	}
 }
 
-void COTriangle::print()
+void TCOTriangle::print()
 {
 	if (vertexArray != NULL)
 	{
@@ -25,7 +25,7 @@ void COTriangle::print()
 	}
 }
 
-bool COTriangle::isTriangle(TCOVector2* _vArray)
+bool TCOTriangle::isTriangle(TCOVector2* _vArray)
 {
 	bool result = true;
 	if (_vArray[0]== _vArray[1]|| _vArray[0] == _vArray[2]||_vArray[1]== _vArray[2])
@@ -35,7 +35,7 @@ bool COTriangle::isTriangle(TCOVector2* _vArray)
 	return (result);
 }
 
-bool COTriangle::isInTriangle(TCOVector2* _TestVector)
+bool TCOTriangle::isInTriangle(TCOVector2* _TestVector)
 {
 	bool result = false;
 	if (vertexArray == NULL){}
