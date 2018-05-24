@@ -37,18 +37,18 @@ CORaster::~CORaster()
 
 void CORaster::makePixels(int myWidth, int myHeight)
 {
-	//todo : 为了方便这里应该使用内存连续空间的分配方法
-	//https://blog.csdn.net/lavorange/article/details/42879605
+	//这里使用内存连续空间的分配方法，pixelArray每个像素在内存上是连续的空间
 	freePPixels();
 	if (checkSize(myWidth, myHeight))
 	{
 		width = myWidth;
 		height = myHeight;
 
-		pixelArray = (COColor**)malloc(sizeof(COColor*)*height);
-		for (int i = 0; i < height; i++)
+		pixelArray = (COColor **)malloc(sizeof(COColor*) * height);
+		pixelArray[0] = (COColor*)malloc(sizeof(COColor) * width*height);
+		for (int i = 1; i < height; i++)
 		{
-			*(pixelArray + i) = (COColor*)malloc(sizeof(COColor*)*width);
+			pixelArray[i] = pixelArray[i-1] + width;
 		}
 	}
 }
@@ -72,11 +72,10 @@ void CORaster::freePPixels()
 {
 	if (!(pixelArray == nullptr))
 	{
-		for (int i = 0; i < this->height; i++)
+		if (!(pixelArray[0] == nullptr))
 		{
-
-			free(*(pixelArray + i));
-
+			free(pixelArray[0]);
+			free(pixelArray);
 		}
 	}
 }
