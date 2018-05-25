@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "stdafx.h"
 #include "COColor.h"
+#include "COTriangle.h"
 
 class CORaster
 {
@@ -17,11 +18,10 @@ public:
 
 	void setPixels( int , int , COColor[] );
 
-	/*todo_________________________________
-	static void drawTriangle(COTriangle*);
-	//order : from left corner , check trangle
 	
-	_________________________________todo*/
+	void drawTriangle(COTriangle);
+	//order : from left corner , check trangle
+	//todo : current it fills the whole raster
 	void fillRectangle(COColor);
 
 	int getWidth();

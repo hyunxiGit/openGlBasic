@@ -164,3 +164,22 @@ void CORaster::fillRectangle(COColor myFillColor)
 		}
 	}
 }
+
+void CORaster::drawTriangle(COTriangle myTriangle)
+{
+	COColor fillColor = COCOLOR_GREEN;
+
+
+	for (int y = 0; y < height; y++)
+	{
+		for (int x = 0; x < width; x++)
+		{
+			COVector2 curPixel = Vector::makeCOVector2(x, y);
+			if (Triangle ::isInTriangle (myTriangle, curPixel))
+			{
+				//check if the coordinat is in the tri
+				pixelArray[y][x] = fillColor;
+			}
+		}
+	}
+}

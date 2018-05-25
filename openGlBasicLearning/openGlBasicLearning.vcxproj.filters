@@ -27,9 +27,6 @@
     <ClInclude Include="COTriangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RasterDraw.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CORaster.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -48,9 +45,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="COTriangle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RasterDraw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CORaster.cpp">

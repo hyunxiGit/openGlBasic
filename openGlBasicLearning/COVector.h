@@ -27,15 +27,3 @@ public:
 	static void print(COVector2);
 	static void print(COVector3);
 };
-
-class TCOVector2
-{
-public:
-	float x;
-	float y;
-	TCOVector2(float, float);
-	TCOVector2 operator+ (TCOVector2);
-	TCOVector2 operator* (float);
-	bool operator== (TCOVector2);
-	void print();
-};
