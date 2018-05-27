@@ -19,7 +19,7 @@ public:
 	void setPixels( int , int , COColor[] );
 
 	
-	void drawTriangle(COTriangle);
+	void drawTriangle(COTriangle, int);
 	//order : from left corner , check trangle
 	//todo : current it fills the whole raster
 	void fillRectangle(COColor);

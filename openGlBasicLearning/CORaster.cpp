@@ -165,20 +165,32 @@ void CORaster::fillRectangle(COColor myFillColor)
 	}
 }
 
-void CORaster::drawTriangle(COTriangle myTriangle)
+void CORaster::drawTriangle(COTriangle myTriangle, int mode)
 {
+	//mode = 0 : solid color
+	//mode = 1 : blend 
+
 	COColor fillColor = COCOLOR_GREEN;
-
-
+	COColor blendColor ;
 	for (int y = 0; y < height; y++)
 	{
 		for (int x = 0; x < width; x++)
 		{
 			COVector2 curPixel = Vector::makeCOVector2(x, y);
+
+			COVector3 myV3 = Vector::makeCOVector3(0.0f, 0.0f, 0.0f);
+			bool inTriangle = Triangle :: getBarycentric(myTriangle, curPixel, &myV3);
+
+			COColor _colorA = Color::multiply(COCOLOR_GREEN, myV3.x);
+			COColor _colorB = Color::multiply(COCOLOR_RED, myV3.y);
+			COColor _colorC = Color::multiply(COCOLOR_BLUE, myV3.z);
+			blendColor = Color::add(_colorA, _colorB);
+			blendColor = Color::add(blendColor, _colorC);
+
 			if (Triangle ::isInTriangle (myTriangle, curPixel))
 			{
 				//check if the coordinat is in the tri
-				pixelArray[y][x] = fillColor;
+				pixelArray[y][x] = mode == 0 ? fillColor : blendColor;
 			}
 		}
 	}

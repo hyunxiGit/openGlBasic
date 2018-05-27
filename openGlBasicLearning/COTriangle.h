@@ -15,4 +15,5 @@ public:
 	static bool isTriangle (COVector2, COVector2, COVector2);
 	static bool isInTriangle(COTriangle , COVector2);
 	static void print(COTriangle);
+	static bool getBarycentric(COTriangle, COVector2 myTestVector, COVector3*);
 };
