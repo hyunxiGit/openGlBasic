@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="COColor.h" />
+    <ClInclude Include="COMatrix.h" />
     <ClInclude Include="COTriangle.h" />
     <ClInclude Include="COVector.h" />
     <ClInclude Include="CORaster.h" />
@@ -156,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="COColor.cpp" />
+    <ClCompile Include="COMatrix.cpp" />
     <ClCompile Include="COTriangle.cpp" />
     <ClCompile Include="COVector.cpp" />
     <ClCompile Include="openGlBasicLearning.cpp" />
