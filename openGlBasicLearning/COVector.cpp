@@ -16,6 +16,15 @@ COVector3 Vector:: makeCOVector3(float myX , float myY , float myZ)
 	resultVector.z = myZ;
 	return (resultVector);
 }
+COVector4 Vector::makeCOVector4(float myX, float myY, float myZ, float myW)
+{
+	COVector4 resultVector;
+	resultVector.x = myX;
+	resultVector.y = myY;
+	resultVector.z = myZ;
+	resultVector.w = myW;
+	return (resultVector);
+}
 COVector2 Vector::add(COVector2 myV1, COVector2 myV2)
 {
 	COVector2 resultVector;

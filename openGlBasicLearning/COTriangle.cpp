@@ -2,7 +2,7 @@
 #include "COTriangle.h"
 #include "COVector.h"
 
-COTriangle Triangle::makeTriangle(COVector2 myA, COVector2 myB, COVector2 myC)
+COTriangle Triangle::makeTriangle(COVector3 myA, COVector3 myB, COVector3 myC)
 {
 	COTriangle result;
 	result.vertexA = myA;
@@ -10,7 +10,7 @@ COTriangle Triangle::makeTriangle(COVector2 myA, COVector2 myB, COVector2 myC)
 	result.vertexC = myC;
 	return (result);
 }
-bool Triangle::isTriangle(COVector2 myA, COVector2 myB, COVector2 myC)
+bool Triangle::isTriangle(COVector3 myA, COVector3 myB, COVector3 myC)
 {
 	bool result = true;
 	if (Vector ::equal (myA, myB) || Vector::equal(myA, myC) || Vector::equal(myC, myB))
@@ -22,12 +22,16 @@ bool Triangle::isTriangle(COVector2 myA, COVector2 myB, COVector2 myC)
 bool Triangle::isInTriangle(COTriangle myTriangle, COVector2 myTestVector)
 {
 	COVector3 myV3 = Vector ::makeCOVector3(0.0f, 0.0f, 0.0f);
-	bool result = getBarycentric(myTriangle, myTestVector, &myV3);
+	bool result = getBarycentric2D(myTriangle, myTestVector, &myV3);
 	return (result);
 }
 
-bool Triangle :: getBarycentric(COTriangle myTriangle, COVector2 myTestVector, COVector3* myBarycentric)
+bool Triangle ::getBarycentric2D(COTriangle myTriangle, COVector2 myTestVector, COVector3* myBarycentric)
 {
+	//这里要重新想一下怎么弄，分开2D和3D计算
+	//先把三角形 z 轴干掉
+	//计算barycentric
+	
 	int result = 0;
 	COVector2 v0 = myTestVector;
 
@@ -50,7 +54,7 @@ bool Triangle :: getBarycentric(COTriangle myTriangle, COVector2 myTestVector, C
 void Triangle::print(COTriangle myTriangle)
 {
 	
-	cout << "[("<<myTriangle.vertexA.x<<","<< myTriangle.vertexA.y<<") ,\
-		("<<myTriangle.vertexB.x<<","<< myTriangle.vertexB.y<<"),\
-		("<<myTriangle.vertexC.x<<"," <<myTriangle.vertexC.y<<")] "<< endl;
+	cout << "[("<<myTriangle.vertexA.x<<","<< myTriangle.vertexA.y <<"," << myTriangle.vertexA.z<<") ,\
+		("<<myTriangle.vertexB.x<<","<<myTriangle.vertexB.y << "," << myTriangle.vertexB.z<<"),\
+		("<<myTriangle.vertexC.x<<"," << myTriangle.vertexC.y << "," <<myTriangle.vertexC.z<<")] "<< endl;
 }
