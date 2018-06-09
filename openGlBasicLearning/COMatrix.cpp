@@ -118,21 +118,118 @@ COMatrix4 Matrix::makeCOMatrix4(float myM11, float myM21, float myM31,float myM4
 	return (resultMatrix);
 
 }
-COMatrix4 Matrix::makeTransformCoMatrix4(float, float, float);
-COMatrix4 Matrix::makeRotateXMatrix4(double);
-COMatrix4 Matrix::makeRotateYMatrix4(double);
-COMatrix4 Matrix::makeRotateZMatrix4(double);
-COMatrix4 Matrix::makeScaleMatrix4(float, float, float, float);
-COMatrix4 Matrix::concatenate4(COMatrix4, COMatrix4);
+COMatrix4 Matrix::makeTransformCoMatrix4(float myTx, float myTy, float myTz)
+{
+	COMatrix4 resultMatrix = makeCOMatrix4(	1.0f, 0.0f, 0.0f, myTx, \
+											0.0f, 1.0f, 0.0f, myTy, \
+											0.0f, 0.0f, 1.0f, myTz, \
+											0.0f, 0.0f, 0.0f, 1.0f );
+	return (resultMatrix);
+}
+COMatrix4 Matrix::makeRotateXMatrix4(double myRotation)
+{
+	COMatrix4 resultMatrix = makeCOMatrix4(	1.0f, 0.0f, 0.0f, 0.0f, \
+											0.0f, cos(myRotation) , -sin(myRotation), 0.0f,\
+											0.0f, sin(myRotation) , cos(myRotation) , 0.0f,\
+											0.0f, 0.0f, 0.0f, 1.0f );
+	return (resultMatrix);
+}
+COMatrix4 Matrix::makeRotateYMatrix4(double myRotation)
+{
+	COMatrix4 resultMatrix = makeCOMatrix4(	cos(myRotation), 0.0f, sin(myRotation), 0.0f, \
+											0.0f, 1.0f, 0.0f, 0.0f, \
+											0.0f, -sin(myRotation), 0.0f , cos(myRotation), \
+											0.0f, 0.0f, 0.0f, 1.0f);
+	return (resultMatrix);
+}
+COMatrix4 Matrix::makeRotateZMatrix4(double myRotation)
+{
+	COMatrix4 resultMatrix = makeCOMatrix4(	cos(myRotation), -sin(myRotation), 0.0f, 0.0f, \
+											sin(myRotation), cos(myRotation), 0.0f, 0.0f, \
+											0.0f, 0.0f, 1.0f, 0.0f, \
+											0.0f, 0.0f, 0.0f, 1.0f);
+	return (resultMatrix);
+}
 
-COVector3 Matrix::convertByMatrix4(COMatrix4, COVector3);
-COVector3 Matrix::transform4(COVector3, float, float, float);
-COVector3 Matrix::rotateX4(COVector3, double);
-COVector3 Matrix::rotateY4(COVector3, double);
-COVector3 Matrix::rotateZ4(COVector3, double);
-COVector3 Matrix::scale4(COVector3, float, float, float);
+COMatrix4 Matrix:: makeScaleMatrix4(float mySx, float mySy, float mySz)
+{
+	COMatrix4 resultMatrix = makeCOMatrix4(	mySx , 0.0f , 0.0f , 0.0f,\
+											0.0f , mySy , 0.0f , 0.0f,\
+											0.0f , 0.0f , mySz , 0.0f,\
+											0.0f , 0.0f , 0.0f , 1.0f);
+	return (resultMatrix);
+}
+COMatrix4 Matrix::concatenate4(COMatrix4 myMatrix1, COMatrix4 myMatrix2)
+{
+	COMatrix4 myResultMatrix;
+	myResultMatrix.m11 = myMatrix1.m11 * myMatrix2.m11 + myMatrix1.m21 * myMatrix2.m12 + myMatrix1.m31 * myMatrix2.m13 + myMatrix1.m41 * myMatrix2.m14;
+	myResultMatrix.m12 = myMatrix1.m12 * myMatrix2.m11 + myMatrix1.m22 * myMatrix2.m12 + myMatrix1.m32 * myMatrix2.m13 + myMatrix1.m42 * myMatrix2.m14;
+	myResultMatrix.m13 = myMatrix1.m13 * myMatrix2.m11 + myMatrix1.m23 * myMatrix2.m12 + myMatrix1.m33 * myMatrix2.m13 + myMatrix1.m43 * myMatrix2.m14;
+	myResultMatrix.m14 = myMatrix1.m14 * myMatrix2.m11 + myMatrix1.m24 * myMatrix2.m12 + myMatrix1.m34 * myMatrix2.m13 + myMatrix1.m44 * myMatrix2.m14;
 
-void Matrix::print(COMatrix4)
+	myResultMatrix.m21 = myMatrix1.m11 * myMatrix2.m21 + myMatrix1.m21 * myMatrix2.m22 + myMatrix1.m31 * myMatrix2.m23 + myMatrix1.m41 * myMatrix2.m24;
+	myResultMatrix.m22 = myMatrix1.m12 * myMatrix2.m21 + myMatrix1.m22 * myMatrix2.m22 + myMatrix1.m32 * myMatrix2.m23 + myMatrix1.m42 * myMatrix2.m24;
+	myResultMatrix.m23 = myMatrix1.m13 * myMatrix2.m21 + myMatrix1.m23 * myMatrix2.m22 + myMatrix1.m33 * myMatrix2.m23 + myMatrix1.m43 * myMatrix2.m24;
+	myResultMatrix.m34 = myMatrix1.m14 * myMatrix2.m21 + myMatrix1.m24 * myMatrix2.m22 + myMatrix1.m34 * myMatrix2.m23 + myMatrix1.m44 * myMatrix2.m24;
+
+	myResultMatrix.m31 = myMatrix1.m11 * myMatrix2.m31 + myMatrix1.m21 * myMatrix2.m32 + myMatrix1.m31 * myMatrix2.m33 + myMatrix1.m41 * myMatrix2.m34;
+	myResultMatrix.m32 = myMatrix1.m12 * myMatrix2.m31 + myMatrix1.m22 * myMatrix2.m32 + myMatrix1.m32 * myMatrix2.m33 + myMatrix1.m42 * myMatrix2.m34;
+	myResultMatrix.m33 = myMatrix1.m13 * myMatrix2.m31 + myMatrix1.m23 * myMatrix2.m32 + myMatrix1.m33 * myMatrix2.m33 + myMatrix1.m43 * myMatrix2.m34;
+	myResultMatrix.m34 = myMatrix1.m14 * myMatrix2.m31 + myMatrix1.m24 * myMatrix2.m32 + myMatrix1.m34 * myMatrix2.m33 + myMatrix1.m44 * myMatrix2.m34;
+
+	myResultMatrix.m41 = myMatrix1.m11 * myMatrix2.m41 + myMatrix1.m21 * myMatrix2.m42 + myMatrix1.m31 * myMatrix2.m43 + myMatrix1.m41 * myMatrix2.m44;
+	myResultMatrix.m42 = myMatrix1.m12 * myMatrix2.m41 + myMatrix1.m22 * myMatrix2.m42 + myMatrix1.m32 * myMatrix2.m43 + myMatrix1.m42 * myMatrix2.m44;
+	myResultMatrix.m43 = myMatrix1.m13 * myMatrix2.m41 + myMatrix1.m23 * myMatrix2.m42 + myMatrix1.m33 * myMatrix2.m43 + myMatrix1.m43 * myMatrix2.m44;
+	myResultMatrix.m44 = myMatrix1.m14 * myMatrix2.m41 + myMatrix1.m24 * myMatrix2.m42 + myMatrix1.m34 * myMatrix2.m43 + myMatrix1.m44 * myMatrix2.m44;
+
+	return(myResultMatrix);
+}
+
+COVector3 Matrix::convertByMatrix4(COMatrix4 myMatrix, COVector3 myVector)
+{
+	COVector3 resultVector;
+	resultVector.x = myVector.x * myMatrix.m11 + myVector.y * myMatrix.m21 + myVector.z * myMatrix.m31 + myMatrix.m41;
+	resultVector.y = myVector.x * myMatrix.m12 + myVector.y * myMatrix.m22 + myVector.z * myMatrix.m32 + myMatrix.m42;
+	resultVector.z = myVector.x * myMatrix.m13 + myVector.y * myMatrix.m23 + myVector.z * myMatrix.m33 + myMatrix.m43;
+	return(resultVector);
+}
+COVector3 Matrix::transform4(COVector3 myVector, float myTx, float myTy, float myTz)
+{
+	COVector3 resultVector;
+	COMatrix4 _transMatrix = makeTransformCoMatrix4(myTx, myTy, myTz);
+	resultVector = convertByMatrix4(_transMatrix, myVector);
+	return(resultVector);
+}
+COVector3 Matrix::rotateX4(COVector3 myVector, double myRotation)
+{
+	COVector3 resultVector;
+	COMatrix4 _rotateMatrix = makeRotateXMatrix4(myRotation);
+	resultVector = convertByMatrix4(_rotateMatrix , myVector);
+	return(resultVector);
+}
+COVector3 Matrix::rotateY4(COVector3 myVector, double myRotation)
+{
+	COVector3 resultVector;
+	COMatrix4 _rotateMatrix = makeRotateYMatrix4(myRotation);
+	resultVector = convertByMatrix4(_rotateMatrix, myVector);
+	return(resultVector);
+}
+COVector3 Matrix::rotateZ4(COVector3 myVector, double myRotation)
+{
+	COVector3 resultVector;
+	COMatrix4 _rotateMatrix = makeRotateZMatrix4(myRotation);
+	resultVector = convertByMatrix4(_rotateMatrix, myVector);
+	return(resultVector);
+}
+
+COVector3 Matrix::scale4(COVector3 myVector, float mySx, float mySy, float mySz)
+{
+	COMatrix4 myScaleMatrix = makeScaleMatrix4(mySx, mySy, mySz);
+	COVector3 result = convertByMatrix4(myScaleMatrix, myVector);
+	return(result);
+}
+
+void Matrix::print(COMatrix4 myMatrix)
 {
 	std::cout << setprecision(2) << "|" << myMatrix.m11 << "," << myMatrix.m21 << "," << myMatrix.m31 << "|" << myMatrix.m41 << "|" << std::endl;
 	std::cout << "|" << myMatrix.m12 << "," << myMatrix.m22 << "," << myMatrix.m32 << "|" << myMatrix.m42 << "|" << std::endl;

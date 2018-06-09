@@ -39,7 +39,7 @@ public:
 	static COMatrix4 makeRotateXMatrix4(double);
 	static COMatrix4 makeRotateYMatrix4(double);
 	static COMatrix4 makeRotateZMatrix4(double);
-	static COMatrix4 makeScaleMatrix4(float, float, float, float);
+	static COMatrix4 makeScaleMatrix4(float, float, float );
 	static COMatrix4 concatenate4(COMatrix4, COMatrix4);
 
 	static COVector3  convertByMatrix4(COMatrix4, COVector3);
