@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "COMatrix.h"
 
 
@@ -111,10 +111,10 @@ COMatrix4 Matrix::makeCOMatrix4(float myM11, float myM21, float myM31,float myM4
 	resultMatrix.m23 = myM23;
 	resultMatrix.m33 = myM33;
 	resultMatrix.m43 = myM43;
-	resultMatrix.m13 = myM14;
-	resultMatrix.m23 = myM24;
-	resultMatrix.m33 = myM34;
-	resultMatrix.m43 = myM44;
+	resultMatrix.m14 = myM14;
+	resultMatrix.m24 = myM24;
+	resultMatrix.m34 = myM34;
+	resultMatrix.m44 = myM44;
 	return (resultMatrix);
 
 }
@@ -138,7 +138,7 @@ COMatrix4 Matrix::makeRotateYMatrix4(double myRotation)
 {
 	COMatrix4 resultMatrix = makeCOMatrix4(	cos(myRotation), 0.0f, sin(myRotation), 0.0f, \
 											0.0f, 1.0f, 0.0f, 0.0f, \
-											0.0f, -sin(myRotation), 0.0f , cos(myRotation), \
+											- sin(myRotation) ,0.0f, cos(myRotation), 0.0f , \
 											0.0f, 0.0f, 0.0f, 1.0f);
 	return (resultMatrix);
 }

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "COVector.h"
 #include <iostream>
 
@@ -52,5 +52,5 @@ public:
 	static void print(COMatrix4);
 };
 
-const COMatrix3 COMATRIX_IDENDITY = Matrix::makeCOMatrix3(1.0f, 0.0f , 0.0f , 0.0f , 1.0f , 0.0f , 0.0f ,  0.0f , 1.0f);
-const COMatrix4 COMATRIX_IDENDITY = Matrix::makeCOMatrix4(1.0f, 0.0f , 0.0f , 0.0f , 0.0f , 1.0f , 0.0f , 0.0f , 0.0f , 0.0f , 1.0f, 0.0f , 0.0f , 0.0f , 0.0f, 1.0f);
+const COMatrix3 COMATRIX_IDENDITY_3 = Matrix::makeCOMatrix3(1.0f, 0.0f , 0.0f , 0.0f , 1.0f , 0.0f , 0.0f ,  0.0f , 1.0f);
+const COMatrix4 COMATRIX_IDENDITY_4 = Matrix::makeCOMatrix4(1.0f, 0.0f , 0.0f , 0.0f , 0.0f , 1.0f , 0.0f , 0.0f , 0.0f , 0.0f , 1.0f, 0.0f , 0.0f , 0.0f , 0.0f, 1.0f);

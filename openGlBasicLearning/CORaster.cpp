@@ -169,7 +169,8 @@ void CORaster::drawTriangle(COTriangle myTriangle, int mode)
 {
 	//mode = 0 : solid color
 	//mode = 1 : blend 
-
+	//todo: 因为triangle转为COVector 需要重新写这里
+	/*
 	COColor fillColor = COCOLOR_GREEN;
 	COColor blendColor ;
 	for (int y = 0; y < height; y++)
@@ -193,5 +194,5 @@ void CORaster::drawTriangle(COTriangle myTriangle, int mode)
 				pixelArray[y][x] = mode == 0 ? fillColor : blendColor;
 			}
 		}
-	}
+	}*/
 }

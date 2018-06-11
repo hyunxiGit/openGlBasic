@@ -33,7 +33,7 @@ bool Triangle ::getBarycentric2D(COTriangle myTriangle, COVector2 myTestVector, 
 	//计算barycentric
 	
 	int result = 0;
-	COVector2 v0 = myTestVector;
+	/*COVector2 v0 = myTestVector;
 
 	COVector2 v1 = myTriangle.vertexA;
 	COVector2 v2 = myTriangle.vertexB;
@@ -47,7 +47,7 @@ bool Triangle ::getBarycentric2D(COTriangle myTriangle, COVector2 myTestVector, 
 	if ((myBarycentric->x >= 0.0f && myBarycentric->x <= 1.0f) && (myBarycentric->y >= 0.0f && myBarycentric->y <= 1.0f) && (myBarycentric->z >= 0.0f && myBarycentric->z <= 1.0f))
 	{
 		result = 1;
-	}
+	}*/
 	return(result);
 }
 

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "COVector.h"
 
 COVector2 Vector :: makeCOVector2(float myX, float myY)
@@ -84,7 +84,7 @@ void Vector::print(COVector2 myV)
 
 void Vector::print(COVector3 myV) 
 {
-	cout << (myV.x, myV.y, myV.z) << endl;
+	cout << "(" << myV.x << "," <<myV.y<<","<< myV.z<<")" << endl;
 }
 
 void coTestFunction()
