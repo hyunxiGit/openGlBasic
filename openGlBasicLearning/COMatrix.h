@@ -47,6 +47,7 @@ public:
 	static COVector3 rotateX4(COVector3, double);
 	static COVector3 rotateY4(COVector3, double);
 	static COVector3 rotateZ4(COVector3, double);
+	static COVector3 rotateA(COVector3 , COVector3, double);
 	static COVector3 scale4(COVector3, float, float, float);
 
 	static void print(COMatrix4);
